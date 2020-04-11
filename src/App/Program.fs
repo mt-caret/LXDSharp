@@ -19,7 +19,7 @@ let main argv =
                 let! (res, etag) = LXD.get client url
                 printfn "%s" res
                 printfn "etag: %A" etag
-                printfn "%A" <| Decode.fromString LXD.LXDRoot.Decoder res
+                printfn "%A" <| Decode.fromString (LXD.Response.Decoder LXD.LXDRoot.Decoder LXD.jsonValueDecoder) res
             } |> Async.RunSynchronously
         | "ws" ->
             async {
